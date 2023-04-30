@@ -1,0 +1,76 @@
+<html !DOCTYPE>
+<head>
+  <title>Netzwelt</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<form method="post" action="https://netzwelt-devtest.azurewebsites.net/Account/SignIn">
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username">
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password">
+  <br>
+  <input type="submit" value="Submit">
+</form>
+
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const api_url = 'https://netzwelt-devtest.azurewebsites.net/Account/SignIn';
+      const response = await fetch(api_url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+      });
+      if (response.ok) {
+        // Login successful
+        window.location.href = '/Territories/All';
+      } else {
+        // Invalid credentials
+        alert('Invalid credentials. Please try again.');
+      }
+    });
+  </script>
+  
+
+<!-- <script>
+  const form = document.querySelector('form');
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const api_url = 'https://netzwelt-devtest.azurewebsites.net/Account/SignIn';
+    // GET request
+    const response = await fetch(api_url);
+    if (response.ok) {
+      // Login successful
+      window.location.href = 'https://netzwelt-devtest.azurewebsites.net/Territories/All';
+    } else {
+      // Invalid credentials
+      alert('Invalid credentials. Please try again.');
+    }
+    // POST request
+    const response2 = await fetch(api_url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
+    });
+    if (response2.ok) {
+      // Login successful
+      window.location.href = 'https://netzwelt-devtest.azurewebsites.net/Territories/All';
+    } else {
+      // Invalid credentials
+      alert('Invalid credentials. Please try again.');
+    }
+  });
+</script> -->
+</html>
